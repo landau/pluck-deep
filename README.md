@@ -5,11 +5,6 @@ pluck-deep
 
 Pluck values of a collection given a 'dot' separated string
 
- * Pluck values of an object given a 'dot' separated string
- * ex: 'foo.bar' returns the value of bar for an obj { foo: 'bar' }.
- *     'foo.bar.name' will return the value of 'name' for all objects
- *     within the array bar.
-
 ```js
 module.exports = function pluckDeep(coll, selector) { ... }
 ```
