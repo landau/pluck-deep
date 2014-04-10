@@ -1,0 +1,36 @@
+{
+  "name": "pluck-deep",
+  "version": "0.1.0",
+  "description": "Pluck values of a collection given a dot separated string",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "jshint --reporter node_modules/jshint-stylish/stylish.js index.js test.js",
+    "test": "mocha -R nyan test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/landau/pluck-deep.git"
+  },
+  "keywords": [
+    "functional",
+    "pluck",
+    "object",
+    "array",
+    "map",
+    "deep",
+    "deep pluck",
+    "keys",
+    "values"
+  ],
+  "author": "Trevor Landau <landautrevor@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/landau/pluck-deep/issues"
+  },
+  "homepage": "https://github.com/landau/pluck-deep",
+  "devDependencies": {
+    "jshint-stylish": "^0.1.5",
+    "mocha": "^1.18.2",
+    "jshint": "^2.5.0"
+  }
+}
