@@ -121,6 +121,33 @@ describe('pluckDeep', function() {
     assert.equal(arr, null);
   });
 
+  it('should pluck into nested objects with arrays', function() {
+    var sel = 'saturn.moons.position.lat';
+    var o = {
+      saturn: {
+        moons: [
+          {
+            name: 'titan',
+            position: {
+              lat: 5,
+              lon: 4
+            }
+          },
+          {
+            name: 'rhea',
+            position: {
+              lat: 10,
+              lon: 20
+            }
+          },
+        ]
+      }
+    };
+
+    var arr = pluckDeep(o, sel);
+    assert.deepEqual(arr, [5, 10]);
+  });
+
   it('should go pretty deep as a SANITY CHECK', function() {
     var sel = 'sun.mercury.venus.earth.mars.jupiter.saturn.uranus.neptune.value';
     var solarSys = {

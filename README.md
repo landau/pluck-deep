@@ -66,3 +66,8 @@ var arr = pluckDeep(o, sel);
 var expect = o.saturn.moons.map(prop('name'));
 assert.deepEqual(arr, expect);
 ```
+
+## Changelog
+
+#### 0.1.1
+- Added an extra santity test
