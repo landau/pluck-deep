@@ -67,7 +67,47 @@ var expect = o.saturn.moons.map(prop('name'));
 assert.deepEqual(arr, expect);
 ```
 
+### Filterable
+
+Add a filterable statment to filter out return values based on some comparable
+
+```js
+var sel = 'system.planets.name[type=dwarf]';
+var o = {
+  system: {
+    planets: [
+      {
+        name: 'earth',
+        type: 'ocean',
+      },
+      {
+        name: 'pluto',
+        type: 'dwarf',
+      }
+    ]
+  }
+};
+
+var v = pluckDeep(o, sel);
+assert(Array.isArray(v));
+assert.equal(v.length, 1);
+assert.equal(v[0], 'pluto');
+
+// With an object
+var sel = 'rings[type=gas]';
+var venus = {
+  type: 'gas',
+  rings: false
+};
+
+var v = pluckDeep(venus, sel);
+assert.equal(v, false);
+```
+
 ## Changelog
+
+#### 0.2.0
+- Added filterables
 
 #### 0.1.1
 - Added an extra santity test

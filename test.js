@@ -35,21 +35,33 @@ describe('pluck', function() {
 });
 
 describe('parse', function() {
-  it('should parse a string to an array', function() {
-    var arr = parser('earth.mars');
-    assert.equal(arr.length, 2);
-    assert.deepEqual(arr, ['earth', 'mars']);
-  });
-
-  it('should trim whitespaces', function() {
-    [
-      parser('earth. mars'),
-      parser('earth .mars'),
-      parser('earth . mars'),
-      parser(' earth . mars ')
-    ].forEach(function(arr) {
+  describe('#parseSelector', function() {
+    it('should parse a string to an array', function() {
+      var arr = parser.parseSelector('earth.mars');
       assert.equal(arr.length, 2);
       assert.deepEqual(arr, ['earth', 'mars']);
+    });
+
+    it('should trim whitespaces', function() {
+      [
+        parser.parseSelector('earth. mars'),
+        parser.parseSelector('earth .mars'),
+        parser.parseSelector('earth . mars'),
+        parser.parseSelector(' earth . mars ')
+      ].forEach(function(arr) {
+        assert.equal(arr.length, 2);
+        assert.deepEqual(arr, ['earth', 'mars']);
+      });
+    });
+  });
+
+  describe('#parseFilter', function() {
+    it('should return an object with selector/key/val', function() {
+      var o = parser.parseFilter('saturn[awesome=true]');
+
+      assert.equal(o.selector, 'saturn');
+      assert.equal(o.key, 'awesome');
+      assert.equal(o.val, 'true');
     });
   });
 });
@@ -183,5 +195,45 @@ describe('pluckDeep', function() {
     var arr = pluckDeep(solarSys, 'sun.mercury.venus.earth.mars.asteroids.name');
     var aster = solarSys.sun.mercury.venus.earth.mars.asteroids.map(prop('name'));
     assert.deepEqual(arr, aster);
+  });
+
+  it('should accept filterables', function() {
+    var sel = 'system.planets.name[type=dwarf]';
+    var o = {
+      system: {
+        planets: [
+          {
+            name: 'earth',
+            type: 'ocean',
+          },
+          {
+            name: 'pluto',
+            type: 'dwarf',
+          }
+        ]
+      }
+    };
+
+    var v = pluckDeep(o, sel);
+    assert(Array.isArray(v));
+    assert.equal(v.length, 1);
+    assert.equal(v[0], 'pluto');
+
+    v = pluckDeep(o, 'system.planets.name[type=gas]');
+    assert.equal(v, null);
+  });
+
+  it('should filter an object', function() {
+    var sel = 'rings[type=gas]';
+    var venus = {
+      type: 'gas',
+      rings: false
+    };
+
+    var v = pluckDeep(venus, sel);
+    assert.equal(v, false);
+
+    v = pluckDeep(venus, 'ring[type=foo]');
+    assert.equal(v, null);
   });
 });
