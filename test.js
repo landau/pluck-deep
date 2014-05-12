@@ -233,7 +233,7 @@ describe('pluckDeep', function() {
     var v = pluckDeep(venus, sel);
     assert.equal(v, false);
 
-    v = pluckDeep(venus, 'ring[type=foo]');
+    v = pluckDeep(venus, 'rings[type=foo]');
     assert.equal(v, null);
   });
 });
