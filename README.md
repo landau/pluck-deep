@@ -106,6 +106,12 @@ assert.equal(v, false);
 
 ## Changelog
 
+#### 0.2.2
+- Use regex for filters
+
+#### 0.2.1
+- Fixed typo in test
+
 #### 0.2.0
 - Added filterables
 
