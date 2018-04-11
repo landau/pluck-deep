@@ -4,7 +4,7 @@
   "description": "Pluck values of a collection given a dot separated string",
   "main": "index.js",
   "scripts": {
-    "pretest": "jshint --reporter node_modules/jshint-stylish/stylish.js index.js test.js",
+    "pretest": "jshint --reporter node_modules/jshint-stylish index.js test.js",
     "test": "mocha -R nyan test.js"
   },
   "repository": {
@@ -30,7 +30,7 @@
   "homepage": "https://github.com/landau/pluck-deep",
   "devDependencies": {
     "jshint": "^2.5.0",
-    "jshint-stylish": "0.1.5",
+    "jshint-stylish": "2.2.1",
     "mocha": "5.0.5"
   }
 }
