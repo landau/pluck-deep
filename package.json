@@ -1,6 +1,6 @@
 {
   "name": "pluck-deep",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Pluck values of a collection given a dot separated string",
   "main": "index.js",
   "scripts": {
