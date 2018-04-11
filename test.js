@@ -66,6 +66,16 @@ describe('parse', function() {
   });
 });
 
+describe('#parseFilter should accept numbers', function() {
+  it('should return an object with number selector/key/val', function() {
+    var o = parser.parseFilter('saturn[gravity=3]');
+
+    assert.equal(o.selector, 'saturn');
+    assert.equal(o.key, 'gravity');
+    assert.equal(o.val, 3);
+  });
+});
+
 describe('pluckDeep', function() {
   it('should return a value for a non array', function() {
     var sel = 'planet';
@@ -158,6 +168,33 @@ describe('pluckDeep', function() {
 
     var arr = pluckDeep(o, sel);
     assert.deepEqual(arr, [5, 10]);
+  });
+
+  it('should pluck into nested objects with arrays using a number selector', function() {
+    var sel = 'saturn.moons.position.lat[lon=4]';
+    var o = {
+      saturn: {
+        moons: [
+          {
+            name: 'titan',
+            position: {
+              lat: 5,
+              lon: 4
+            }
+          },
+          {
+            name: 'rhea',
+            position: {
+              lat: 10,
+              lon: 20
+            }
+          },
+        ]
+      }
+    };
+
+    var arr = pluckDeep(o, sel);
+    assert.deepEqual(arr, [5]);
   });
 
   it('should go pretty deep as a SANITY CHECK', function() {
