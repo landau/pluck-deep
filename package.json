@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Pluck values of a collection given a dot separated string",
   "main": "index.js",
+  "files": ["lib/**/*"],
   "scripts": {
     "test": "nyc -s mocha -R dot test.js",
     "posttest": "npm run -s view-cov && npm run -s check-cov && eslint .",
