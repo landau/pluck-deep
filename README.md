@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/landau/pluck-deep.svg)](https://travis-ci.org/landau/pluck-deep)
 
-pluck-deep
-==========
+# pluck-deep
 
 Pluck values of a collection given a 'dot' separated string
 
@@ -28,8 +27,8 @@ will automatically `map` an array of values for you.
 
 ```js
 // Example selectors
-'planet.earth.size' // returns a single value set a size
-'planet.saturn.moons.name' // Will return an array of moon names
+'planet.earth.size'; // returns a single value set a size
+'planet.saturn.moons.name'; // Will return an array of moon names
 ```
 
 > See below examples and tests for more selectors
@@ -54,11 +53,7 @@ assert.equal(v, o.mercury.venus);
 var sel = 'saturn.moons.name';
 var o = {
   saturn: {
-    moons: [
-      { name: 'titan' },
-      { name: 'enceladus' },
-      { name: 'rhea' }
-    ]
+    moons: [{ name: 'titan' }, { name: 'enceladus' }, { name: 'rhea' }]
   }
 };
 
@@ -78,11 +73,11 @@ var o = {
     planets: [
       {
         name: 'earth',
-        type: 'ocean',
+        type: 'ocean'
       },
       {
         name: 'pluto',
-        type: 'dwarf',
+        type: 'dwarf'
       }
     ]
   }
@@ -105,15 +100,3 @@ assert.equal(v, false);
 ```
 
 ## Changelog
-
-#### 0.2.2
-- Use regex for filters
-
-#### 0.2.1
-- Fixed typo in test
-
-#### 0.2.0
-- Added filterables
-
-#### 0.1.1
-- Added an extra santity test
