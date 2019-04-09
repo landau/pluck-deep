@@ -1,63 +1,57 @@
 'use strict';
 
-var assert = require('assert');
-var pluck = require('./lib/pluck');
-var parser = require('./lib/parser');
-var pluckDeep = require('./');
+const assert = require('assert');
+const { describe, it } = require('mocha');
+const pluck = require('./lib/pluck');
+const parser = require('./lib/parser');
+const pluckDeep = require('./');
 
 function prop(k) {
-  return function (o) {
-    return o[k];
-  };
+  return o => o[k];
 }
 
-describe('pluck', function() {
-  it('should pluck values of an array', function() {
-    var arr = [
-      { name: 'foo' },
-      { name: 'bar' }
-    ];
-
-    var expect = ['foo', 'bar'];
-
+describe('pluck', () => {
+  it('should pluck values of an array', () => {
+    const arr = [{ name: 'foo' }, { name: 'bar' }];
+    const expect = ['foo', 'bar'];
     assert.deepEqual(pluck(arr, 'name'), expect);
   });
 
-  it('should pluck values of an object', function() {
-    var o = {
-      name: 'foo'
-    };
-
-    var expect = 'foo';
-
+  it('should pluck values of an object', () => {
+    const o = { name: 'foo' };
+    const expect = 'foo';
     assert.deepEqual(pluck(o, 'name'), expect);
+  });
+
+  it('should return null if non array or object is given', () => {
+    assert.deepEqual(pluck('hi', 'name'), null);
   });
 });
 
-describe('parse', function() {
-  describe('#parseSelector', function() {
-    it('should parse a string to an array', function() {
-      var arr = parser.parseSelector('earth.mars');
+describe('parse', () => {
+  describe('#parseSelector', () => {
+    it('should parse a string to an array', () => {
+      const arr = parser.parseSelector('earth.mars');
       assert.equal(arr.length, 2);
       assert.deepEqual(arr, ['earth', 'mars']);
     });
 
-    it('should trim whitespaces', function() {
+    it('should trim whitespaces', () => {
       [
         parser.parseSelector('earth. mars'),
         parser.parseSelector('earth .mars'),
         parser.parseSelector('earth . mars'),
         parser.parseSelector(' earth . mars ')
-      ].forEach(function(arr) {
+      ].forEach(arr => {
         assert.equal(arr.length, 2);
         assert.deepEqual(arr, ['earth', 'mars']);
       });
     });
   });
 
-  describe('#parseFilter', function() {
-    it('should return an object with selector/key/val', function() {
-      var o = parser.parseFilter('saturn[awesome=true]');
+  describe('#parseFilter', () => {
+    it('should return an object with selector/key/val', () => {
+      const o = parser.parseFilter('saturn[awesome=true]');
 
       assert.equal(o.selector, 'saturn');
       assert.equal(o.key, 'awesome');
@@ -66,9 +60,9 @@ describe('parse', function() {
   });
 });
 
-describe('#parseFilter should accept numbers', function() {
-  it('should return an object with number selector/key/val', function() {
-    var o = parser.parseFilter('saturn[gravity=3]');
+describe('#parseFilter should accept numbers', () => {
+  it('should return an object with number selector/key/val', () => {
+    const o = parser.parseFilter('saturn[gravity=3]');
 
     assert.equal(o.selector, 'saturn');
     assert.equal(o.key, 'gravity');
@@ -76,76 +70,68 @@ describe('#parseFilter should accept numbers', function() {
   });
 });
 
-describe('pluckDeep', function() {
-  it('should return a value for a non array', function() {
-    var sel = 'planet';
-    var o = { planet: 'mars' };
-    var v = pluckDeep(o, sel);
+describe('pluckDeep', () => {
+  it('should return a value for a non array', () => {
+    const sel = 'planet';
+    const o = { planet: 'mars' };
+    const v = pluckDeep(o, sel);
     assert.equal(v, o.planet);
   });
 
-  it('should return an array for a non array', function() {
-    var sel = 'planet';
-    var o = [{ planet: 'jupiter' }];
-    var arr = pluckDeep(o, sel);
+  it('should return an array for a non array', () => {
+    const sel = 'planet';
+    const o = [{ planet: 'jupiter' }];
+    const arr = pluckDeep(o, sel);
     assert(Array.isArray(arr));
   });
 
-  it('should pluck a single value', function() {
-    var sel = 'planet';
-    var o = { planet: 'earth' };
-    var v = pluckDeep(o, sel);
+  it('should pluck a single value', () => {
+    const sel = 'planet';
+    const o = { planet: 'earth' };
+    const v = pluckDeep(o, sel);
     assert.equal(v, o.planet);
   });
 
-  it('should pluck a nested value', function() {
-    var sel = 'mercury.venus';
-    var o = {
+  it('should pluck a nested value', () => {
+    const sel = 'mercury.venus';
+    const o = {
       mercury: {
         venus: 'earth'
       }
     };
 
-    var v = pluckDeep(o, sel);
+    const v = pluckDeep(o, sel);
     assert.equal(v, o.mercury.venus);
   });
 
-  it('should pluck a nested values from an array', function() {
-    var sel = 'saturn.moons.name';
-    var o = {
+  it('should pluck a nested values from an array', () => {
+    const sel = 'saturn.moons.name';
+    const o = {
       saturn: {
-        moons: [
-          { name: 'titan' },
-          { name: 'enceladus' },
-          { name: 'rhea' }
-        ]
+        moons: [{ name: 'titan' }, { name: 'enceladus' }, { name: 'rhea' }]
       }
     };
 
-    var arr = pluckDeep(o, sel);
-    var expect = o.saturn.moons.map(prop('name'));
+    const arr = pluckDeep(o, sel);
+    const expect = o.saturn.moons.map(prop('name'));
     assert.deepEqual(arr, expect);
   });
 
-  it('should return null for a non existant property', function() {
-    var sel = 'saturn.moons.foo.nick';
-    var o = {
+  it('should return null for a non existant property', () => {
+    const sel = 'saturn.moons.foo.nick';
+    const o = {
       saturn: {
-        moons: [
-          { name: 'titan' },
-          { name: 'enceladus' },
-          { name: 'rhea' }
-        ]
+        moons: [{ name: 'titan' }, { name: 'enceladus' }, { name: 'rhea' }]
       }
     };
 
-    var arr = pluckDeep(o, sel);
+    const arr = pluckDeep(o, sel);
     assert.equal(arr, null);
   });
 
-  it('should pluck into nested objects with arrays', function() {
-    var sel = 'saturn.moons.position.lat';
-    var o = {
+  it('should pluck into nested objects with arrays', () => {
+    const sel = 'saturn.moons.position.lat';
+    const o = {
       saturn: {
         moons: [
           {
@@ -161,18 +147,18 @@ describe('pluckDeep', function() {
               lat: 10,
               lon: 20
             }
-          },
+          }
         ]
       }
     };
 
-    var arr = pluckDeep(o, sel);
+    const arr = pluckDeep(o, sel);
     assert.deepEqual(arr, [5, 10]);
   });
 
-  it('should pluck into nested objects with arrays using a number selector', function() {
-    var sel = 'saturn.moons.position.lat[lon=4]';
-    var o = {
+  it('should pluck into nested objects with arrays using a number selector', () => {
+    const sel = 'saturn.moons.position.lat[lon=4]';
+    const o = {
       saturn: {
         moons: [
           {
@@ -188,18 +174,19 @@ describe('pluckDeep', function() {
               lat: 10,
               lon: 20
             }
-          },
+          }
         ]
       }
     };
 
-    var arr = pluckDeep(o, sel);
+    const arr = pluckDeep(o, sel);
     assert.deepEqual(arr, [5]);
   });
 
-  it('should go pretty deep as a SANITY CHECK', function() {
-    var sel = 'sun.mercury.venus.earth.mars.jupiter.saturn.uranus.neptune.value';
-    var solarSys = {
+  it('should go pretty deep as a SANITY CHECK', () => {
+    const sel =
+      'sun.mercury.venus.earth.mars.jupiter.saturn.uranus.neptune.value';
+    const solarSys = {
       sun: {
         mercury: {
           venus: {
@@ -226,32 +213,37 @@ describe('pluckDeep', function() {
         }
       }
     };
-    var v = pluckDeep(solarSys, sel);
+    const v = pluckDeep(solarSys, sel);
     assert.equal(v, '<3');
 
-    var arr = pluckDeep(solarSys, 'sun.mercury.venus.earth.mars.asteroids.name');
-    var aster = solarSys.sun.mercury.venus.earth.mars.asteroids.map(prop('name'));
+    const arr = pluckDeep(
+      solarSys,
+      'sun.mercury.venus.earth.mars.asteroids.name'
+    );
+    const aster = solarSys.sun.mercury.venus.earth.mars.asteroids.map(
+      prop('name')
+    );
     assert.deepEqual(arr, aster);
   });
 
-  it('should accept filterables', function() {
-    var sel = 'system.planets.name[type=dwarf]';
-    var o = {
+  it('should accept filterables', () => {
+    const sel = 'system.planets.name[type=dwarf]';
+    const o = {
       system: {
         planets: [
           {
             name: 'earth',
-            type: 'ocean',
+            type: 'ocean'
           },
           {
             name: 'pluto',
-            type: 'dwarf',
+            type: 'dwarf'
           }
         ]
       }
     };
 
-    var v = pluckDeep(o, sel);
+    let v = pluckDeep(o, sel);
     assert(Array.isArray(v));
     assert.equal(v.length, 1);
     assert.equal(v[0], 'pluto');
@@ -260,14 +252,14 @@ describe('pluckDeep', function() {
     assert.equal(v, null);
   });
 
-  it('should filter an object', function() {
-    var sel = 'rings[type=gas]';
-    var venus = {
+  it('should filter an object', () => {
+    const sel = 'rings[type=gas]';
+    const venus = {
       type: 'gas',
       rings: false
     };
 
-    var v = pluckDeep(venus, sel);
+    let v = pluckDeep(venus, sel);
     assert.equal(v, false);
 
     v = pluckDeep(venus, 'rings[type=foo]');
