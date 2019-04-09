@@ -4,7 +4,7 @@
   "description": "Pluck values of a collection given a dot separated string",
   "main": "index.js",
   "scripts": {
-    "test": "nyc -s mocha -R nyan test.js",
+    "test": "nyc -s mocha -R dot test.js",
     "posttest": "npm run -s view-cov && npm run -s check-cov && eslint .",
     "check-cov": "nyc check-coverage --lines 100 --functions 100 --branches 100",
     "html-cov": "nyc report --reporter=html",
