@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/landau/pluck-deep.svg)](https://travis-ci.org/landau/pluck-deep)
-
 # pluck-deep
+
+[![Build Status](https://travis-ci.org/landau/pluck-deep.svg)](https://travis-ci.org/landau/pluck-deep)
 
 Pluck values of a collection given a 'dot' separated string
 
@@ -14,13 +14,13 @@ module.exports = function pluckDeep(coll, selector) { ... }
 
 ## Usage
 
-`deep-pluck` accepts an `array` or `object` as an initial argument.
+`pluckDeep` accepts an `array` or `object` as an initial argument.
 
 You can pick a `value` or `array of values` by passing in a `selector`.
 
 ### Selectors
 
-For the purpose of `deep-pluck` a `selector` is a `string` with object
+For the purpose of `pluckDeep` a `selector` is a `string` with object
 value accessors separated with a `.`. In other words, you can retrieve
 a value just like you would on any object, except that these selectors
 will automatically `map` an array of values for you.
@@ -98,5 +98,3 @@ var venus = {
 var v = pluckDeep(venus, sel);
 assert.equal(v, false);
 ```
-
-## Changelog
