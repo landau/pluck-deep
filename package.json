@@ -47,6 +47,6 @@
     "jshint-stylish": "2.2.1",
     "mocha": "6.1.4",
     "nyc": "14.1.1",
-    "prettier": "1.17.0"
+    "prettier": "1.17.1"
   }
 }
