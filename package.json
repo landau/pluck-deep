@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/landau/pluck-deep",
   "devDependencies": {
-    "@landau/eslint-config": "2.0.0",
+    "@landau/eslint-config": "2.0.1",
     "eslint": "6.0.1",
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-import": "2.18.0",
