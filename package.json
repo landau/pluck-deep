@@ -40,12 +40,12 @@
     "@landau/eslint-config": "2.0.1",
     "eslint": "6.0.1",
     "eslint-config-prettier": "6.0.0",
-    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-import": "2.18.1",
     "eslint-plugin-jsdoc": "15.5.3",
     "eslint-plugin-mocha": "6.0.0",
     "eslint-plugin-prettier": "3.1.0",
     "jshint-stylish": "2.2.1",
-    "mocha": "6.1.4",
+    "mocha": "6.2.0",
     "nyc": "14.1.1",
     "prettier": "1.18.2"
   }
