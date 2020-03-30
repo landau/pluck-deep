@@ -7,7 +7,7 @@ const parser = require('./lib/parser');
 const pluckDeep = require('./');
 
 function prop(k) {
-  return o => o[k];
+  return (o) => o[k];
 }
 
 describe('pluck', () => {
@@ -41,8 +41,8 @@ describe('parse', () => {
         parser.parseSelector('earth. mars'),
         parser.parseSelector('earth .mars'),
         parser.parseSelector('earth . mars'),
-        parser.parseSelector(' earth . mars ')
-      ].forEach(arr => {
+        parser.parseSelector(' earth . mars '),
+      ].forEach((arr) => {
         assert.equal(arr.length, 2);
         assert.deepEqual(arr, ['earth', 'mars']);
       });
@@ -96,8 +96,8 @@ describe('pluckDeep', () => {
     const sel = 'mercury.venus';
     const o = {
       mercury: {
-        venus: 'earth'
-      }
+        venus: 'earth',
+      },
     };
 
     const v = pluckDeep(o, sel);
@@ -108,8 +108,8 @@ describe('pluckDeep', () => {
     const sel = 'saturn.moons.name';
     const o = {
       saturn: {
-        moons: [{ name: 'titan' }, { name: 'enceladus' }, { name: 'rhea' }]
-      }
+        moons: [{ name: 'titan' }, { name: 'enceladus' }, { name: 'rhea' }],
+      },
     };
 
     const arr = pluckDeep(o, sel);
@@ -121,8 +121,8 @@ describe('pluckDeep', () => {
     const sel = 'saturn.moons.foo.nick';
     const o = {
       saturn: {
-        moons: [{ name: 'titan' }, { name: 'enceladus' }, { name: 'rhea' }]
-      }
+        moons: [{ name: 'titan' }, { name: 'enceladus' }, { name: 'rhea' }],
+      },
     };
 
     const arr = pluckDeep(o, sel);
@@ -138,18 +138,18 @@ describe('pluckDeep', () => {
             name: 'titan',
             position: {
               lat: 5,
-              lon: 4
-            }
+              lon: 4,
+            },
           },
           {
             name: 'rhea',
             position: {
               lat: 10,
-              lon: 20
-            }
-          }
-        ]
-      }
+              lon: 20,
+            },
+          },
+        ],
+      },
     };
 
     const arr = pluckDeep(o, sel);
@@ -165,18 +165,18 @@ describe('pluckDeep', () => {
             name: 'titan',
             position: {
               lat: 5,
-              lon: 4
-            }
+              lon: 4,
+            },
           },
           {
             name: 'rhea',
             position: {
               lat: 10,
-              lon: 20
-            }
-          }
-        ]
-      }
+              lon: 20,
+            },
+          },
+        ],
+      },
     };
 
     const arr = pluckDeep(o, sel);
@@ -196,22 +196,22 @@ describe('pluckDeep', () => {
                   { name: 'Ceres' },
                   { name: 'Vesta' },
                   { name: 'Pallas' },
-                  { name: 'Hygiea' }
+                  { name: 'Hygiea' },
                 ],
                 jupiter: {
                   saturn: {
                     uranus: {
                       neptune: {
-                        value: '<3'
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                        value: '<3',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     };
     const v = pluckDeep(solarSys, sel);
     assert.equal(v, '<3');
@@ -233,14 +233,14 @@ describe('pluckDeep', () => {
         planets: [
           {
             name: 'earth',
-            type: 'ocean'
+            type: 'ocean',
           },
           {
             name: 'pluto',
-            type: 'dwarf'
-          }
-        ]
-      }
+            type: 'dwarf',
+          },
+        ],
+      },
     };
 
     let v = pluckDeep(o, sel);
@@ -256,7 +256,7 @@ describe('pluckDeep', () => {
     const sel = 'rings[type=gas]';
     const venus = {
       type: 'gas',
-      rings: false
+      rings: false,
     };
 
     let v = pluckDeep(venus, sel);
