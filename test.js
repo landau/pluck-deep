@@ -4,7 +4,7 @@ const assert = require('assert');
 const { describe, it } = require('mocha');
 const pluck = require('./lib/pluck');
 const parser = require('./lib/parser');
-const pluckDeep = require('./');
+const pluckDeep = require('.');
 
 function prop(k) {
   return (o) => o[k];
