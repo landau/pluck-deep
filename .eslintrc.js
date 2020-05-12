@@ -4,6 +4,6 @@ module.exports = {
   rules: {
     'prefer-destructuring': 'off',
     'prefer-rest-params': 'off',
-    'prefer-spread': 'off'
-  }
+    'prefer-spread': 'off',
+  },
 };
