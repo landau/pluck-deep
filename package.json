@@ -47,7 +47,7 @@
     "eslint-plugin-mocha": "8.0.0",
     "eslint-plugin-prettier": "3.1.4",
     "jshint-stylish": "2.2.1",
-    "mocha": "8.2.0",
+    "mocha": "8.2.1",
     "nyc": "15.1.0",
     "prettier": "2.1.2"
   }
